@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-[80px] leading-[103px];
+  }
+
+  h2 {
+    @apply font-antonio font-medium text-[40px] leading-[52px] tracking-[1.5px] uppercase;
+  }
+
+  h3 {
+    @apply font-antonio font-medium text-[12px] leading-[25px] tracking-[2.6px];
+  }
+
+  h4 {
+    @apply font-antonio text-[11px] leading-[25px] tracking-[1px];
+  }
+
+  body {
+    @apply font-League-Spartan font-normal text-[14px] leading-[25px] bg-darkPurple;
+  }
+}
