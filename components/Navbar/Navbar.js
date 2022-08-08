@@ -21,7 +21,7 @@ function Navbar({ handleOpen, isShown }) {
       <header className="border-b border-divideGray relative z-30">
         <nav className="flex justify-between items-center py-7 px-8 md:flex-col md:items-stretch lg:flex-row lg:justify-between lg:items-center">
           <div className="text-[20px] tracking-[-1.05px] uppercase font-bold text-white cursor-pointer md:text-center md:pb-10 lg:pb-0">
-            <Link href="/"> the planets </Link>
+            <Link href="/">the planets</Link>
           </div>
           <ul className="hidden md:flex justify-between items-center lg:space-x-6">
             <li>
