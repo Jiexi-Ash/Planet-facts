@@ -25,6 +25,7 @@ module.exports = {
         greenish: "hsl(169, 73%, 44%)",
         darkishBlue: "hsl(222, 87%, 56%)",
         fadeishGray: "#979797  ",
+        divideGray: "rgba(151,151,151,0.3)",
       },
       fontFamily: {
         antonio: ["Antonio", "sans-serif"],

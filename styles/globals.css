@@ -22,4 +22,54 @@
   body {
     @apply font-League-Spartan font-normal text-[14px] leading-[25px] bg-darkPurple;
   }
+
+  p {
+    @apply font-League-Spartan text-white;
+  }
+}
+
+@layer components {
+  .btn-active {
+    @apply border border-divideGray py-2 px-5;
+  }
+
+  .btn {
+    @apply border border-divideGray py-2 px-5 hover:bg-darkishPurple;
+  }
+}
+
+.divider {
+  @apply bg-fadeishGray opacity-40;
+}
+
+.bg-mercury {
+  background-color: #419ebb;
+}
+
+.bg-venus {
+  background-color: #eda249;
+}
+
+.bg-earth {
+  background-color: #6d2ed5;
+}
+
+.bg-mars {
+  background-color: #d14c32;
+}
+
+.bg-jupiter {
+  background-color: #d83a34;
+}
+
+.bg-saturn {
+  background-color: #cd5120;
+}
+
+.bg-uranus {
+  background-color: #1ec1a2;
+}
+
+.bg-neptune {
+  background-color: #419ebb;
 }

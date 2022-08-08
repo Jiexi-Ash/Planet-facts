@@ -1,78 +1,137 @@
-import { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
+import { useState, useEffect } from "react";
 
-function Planet() {
+import PlanetInfo from "./PlanetInfo";
+import PlanetStat from "./PlanetStat";
+import PlanetImage from "./PlanetImage";
+import PlanetImageGeo from "./PlanetImageGeo";
+import Button from "components/UI/Button";
+
+function Planet({ planet }) {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const handleClick = (index) => {
+    setSelectedIndex(index);
+  };
+
+  useEffect(() => {
+    setSelectedIndex(0);
+  }, []);
+
   return (
-    <div className="">
-      <div className="container max-w-6xl mx-auto h-screen">
-        <div className="px-8 text-white border-b border-fadeishGray">
-          <div className="flex justify-between items-center">
-            <Link href="/">
-              <a className="text-sm uppercase py-4 hover:border-b-4 border-darkishBlue">
-                overview
-              </a>
-            </Link>
-            <Link href="/">
-              <a className="text-sm uppercase">Structure</a>
-            </Link>
-            <Link href="/">
-              <a className="text-sm uppercase">surface</a>
-            </Link>
+    <div className="bg-stars">
+      <div className="lg:container lg:max-w-8xl lg:flex lg:mx-auto lg:justify-center">
+        <div className="flex justify-between items-center border-b border-divideGray px-8 md:hidden">
+          <div
+            onClick={() => handleClick(0)}
+            className={`text-sm uppercase  py-4 ${
+              selectedIndex === 0 ? "border-b-4 border-darkishBlue" : ""
+            }`}
+          >
+            <p className="text-sm uppercase text-white">overview</p>
+          </div>
+
+          <div
+            onClick={() => handleClick(1)}
+            className={`text-sm uppercase  py-4 cursor-pointer ${
+              selectedIndex === 1 ? "border-b-4 border-darkishBlue" : ""
+            }`}
+          >
+            <p className="text-sm uppercase text-white">structure</p>
+          </div>
+          <div
+            onClick={() => handleClick(2)}
+            className={`text-sm uppercase  py-4 ${
+              selectedIndex === 2 ? "border-b-4 border-darkishBlue" : ""
+            }`}
+          >
+            <p className="text-sm uppercase text-white">surface</p>
           </div>
         </div>
-        <div className="w-full flex flex-col justify-center items-center pt-40 pb-10">
-          <div className="relative h-28 w-28">
-            <Image
-              src="/images/planet-mercury.svg"
-              alt="mercury"
-              layout="fill"
+
+        <div className="flex flex-col justify-center items-center md:pt-28  lg:flex-1">
+          {selectedIndex === 0 && (
+            <PlanetImage
+              image={planet.images.planet}
+              name={planet.name}
+              size={planet.imageSize}
+            />
+          )}
+          {selectedIndex === 1 && (
+            <PlanetImage
+              image={planet.images.internal}
+              name={planet.name}
+              size={planet.imageSize}
+            />
+          )}
+          {selectedIndex === 2 && (
+            <PlanetImageGeo
+              image={planet.images.planet}
+              name={planet.name}
+              size={planet.imageSize}
+              geoImage={planet.images.geology}
+            />
+          )}
+        </div>
+
+        <div className="flex flex-col justify-center md:flex-row md:justify-between pt-16 pb-4 px-8  md:space-x-8  lg:flex-col lg:space-x-0 lg:pt-40">
+          <div className="">
+            <h2 className="text-white text-center md:text-left">
+              {planet.name}
+            </h2>
+            {selectedIndex === 0 && (
+              <PlanetInfo
+                info={planet.overview.content}
+                link={planet.overview.source}
+              />
+            )}
+            {selectedIndex === 1 && (
+              <PlanetInfo
+                info={planet.structure.content}
+                link={planet.structure.source}
+              />
+            )}
+            {selectedIndex === 2 && (
+              <PlanetInfo
+                info={planet.geology.content}
+                link={planet.geology.source}
+              />
+            )}
+          </div>
+
+          <div className="hidden md:flex flex-col space-y-3 md:flex-1 md:pt-12">
+            <Button
+              text="Overview"
+              count="01"
+              name={planet.name}
+              index={0}
+              selectedIndex={selectedIndex}
+              onClickHandler={handleClick}
+            />
+            <Button
+              text="internal structure"
+              count="02"
+              name={planet.name}
+              index={1}
+              selectedIndex={selectedIndex}
+              onClickHandler={handleClick}
+            />
+            <Button
+              text="Surface Geology"
+              count="03"
+              name={planet.name}
+              index={2}
+              selectedIndex={selectedIndex}
+              onClickHandler={handleClick}
             />
           </div>
-
-          <div className="pt-20 pb-6">
-            <h2 className="text-center text-white">mercury</h2>
-            <div className="max-w-md px-4 text-center py-4">
-              <p className="text-white opacity-80 leading-6 font-League-Spartan">
-                Mercury is the smallest planet in the Solar System and the
-                closest to the Sun. Its orbit around the Sun takes 87.97 Earth
-                days, the shortest of all the Suns planets. Mercury is one of
-                four terrestrial planets in the Solar System, and is a rocky
-                body like Earth.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center space-x-1">
-            <p className="text-lg text-fadeishGray">
-              Source: <span className="text-white">Wikipedia</span>
-            </p>
-            <div className="relative h-4 w-4">
-              <Image src="/images/icon-source.svg" alt="source" layout="fill" />
-            </div>
-          </div>
         </div>
+      </div>
 
-        <div className="flex flex-col px-8 space-y-4 pb-10">
-          <div className="py-4 px-4 flex justify-between items-center border-2 border-fadeishGray opacity-80">
-            <p className="text-sm uppercase text-fadeishGray">rotation time</p>
-            <p className="uppercase font-bold text-white text-xl">58.6 days</p>
-          </div>
-          <div className="py-2 px-4 flex justify-between items-center border-2 border-fadeishGray opacity-80">
-            <p className="text-sm uppercase text-fadeishGray">
-              revolution time
-            </p>
-            <p className="uppercase font-bold text-white text-xl">87.97 days</p>
-          </div>
-          <div className="py-2 px-4 flex justify-between items-center border-2 border-fadeishGray opacity-80">
-            <p className="text-sm uppercase text-fadeishGray">radius</p>
-            <p className="uppercase font-bold text-white text-xl">2,439,7 km</p>
-          </div>
-          <div className="py-2 px-4 flex justify-between items-center border-2 border-fadeishGray opacity-80">
-            <p className="text-sm uppercase text-fadeishGray">average temp.</p>
-            <p className="uppercase font-bold text-white text-xl">430&#8451;</p>
-          </div>
-        </div>
+      <div className="flex flex-col  pt-4 px-8 py-6 space-y-2 md:flex-row  md:justify-between md:items-center md:space-y-0 md:space-x-4 lg:pt-16">
+        <PlanetStat title="rotation" stat={planet.rotation} />
+        <PlanetStat title="revolution" stat={planet.revolution} />
+        <PlanetStat title="radius" stat={planet.radius} />
+        <PlanetStat title="temperature" stat={planet.temperature} />
       </div>
     </div>
   );
